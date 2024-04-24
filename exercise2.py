@@ -21,7 +21,7 @@ def is_luhn_valid(card_number):
     # Προσθέτουμε τα ψηφία των διψήφιων διπλασιασμένων αριθμών ώστε να γίνουν μονοψήφιοι
     digits_at_odd_positions_converted = [sum(int(digit) for digit in str(num)) if num >= 10 else num
                                          for num in digits_at_odd_positions]
-    # Άθροισμα των άρτιων ψηφίων με το άθροισμα των περιττών ψηφίων που διπλασιάστηκαν
+    # Άθροισμα των ψηφίων στις άρτιες θέσεις με το άθροισμα των διπλασιασμένων ψηφίων στις περιττές θέσεις
     total_sum = sum(digits_at_even_positions) + sum(digits_at_odd_positions_converted)
     # Έλεγχος του τελικού αθροίσματος
     return total_sum % (digits_at_even_positions[-1] + 2) == 0
