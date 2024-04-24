@@ -16,12 +16,13 @@ def is_luhn_valid(card_number):
 
     # Τα ψηφία στις άρτιες θέσεις
     digits_at_even_positions = [int(card_number[i]) for i in range(1, 16, 2)]
-    # Διπλασιάζουμε τα ψηφία στις περιττές θέσεις
+    # Τα ψηφία στις περιττές θέσεις διπλασιασμένα
     digits_at_odd_positions = [int(card_number[i]) * 2 for i in range(0, 16, 2)]
     # Προσθέτουμε τα ψηφία των διψήφιων διπλασιασμένων αριθμών ώστε να γίνουν μονοψήφιοι
-    single_digits = [sum(int(digit) for digit in str(num)) if num >= 10 else num for num in digits_at_odd_positions]
+    digits_at_odd_positions_converted = [sum(int(digit) for digit in str(num)) if num >= 10 else num
+                                         for num in digits_at_odd_positions]
     # Άθροισμα των άρτιων ψηφίων με το άθροισμα των περιττών ψηφίων που διπλασιάστηκαν
-    total_sum = sum(digits_at_even_positions) + sum(single_digits)
+    total_sum = sum(digits_at_even_positions) + sum(digits_at_odd_positions_converted)
     # Έλεγχος του τελικού αθροίσματος
     return total_sum % (digits_at_even_positions[-1] + 2) == 0
 
