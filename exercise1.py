@@ -14,7 +14,7 @@ def main():
                 continue
             print_pattern(n)
         except ValueError:
-            print("Τέλος προγράμματος")
+            print("Τέλος προγράμματος.")
             break
 
 
