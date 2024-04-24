@@ -1,18 +1,10 @@
 def check_invalid_characters(input_string):
-    """
-    Έλεγχος αν η συμβολοσειρά περιέχει μη επιτρεπτούς χαρακτήρες
-    :param input_string: (str) Η συμβολοσειρά που θα ελεγχθεί
-    :return: Τον μη επιτρεπτό χαρακτήρα, διαφορετικά None
-    """
+    """ Έλεγχος αν η συμβολοσειρά περιέχει μη επιτρεπτούς χαρακτήρες """
     return next((char for char in input_string if not (char.isdigit() or char.isspace() or char == '-')), None)
 
 
 def is_luhn_valid(card_number):
-    """
-    Έλεγχος εγκυρότητας του αριθμού της πιστωτικής κάρτας με τον αλγόριθμο του Luhn
-    :param card_number: (str) Ο αριθμός της πιστωτικής κάρτας που θα ελεγχθεί
-    :return: True or False
-    """
+    """ Έλεγχος εγκυρότητας του αριθμού της πιστωτικής κάρτας με τον αλγόριθμο του Luhn """
 
     # Τα ψηφία στις άρτιες θέσεις
     digits_at_even_positions = [int(card_number[i]) for i in range(1, 16, 2)]
@@ -24,14 +16,11 @@ def is_luhn_valid(card_number):
     # Άθροισμα των ψηφίων στις άρτιες θέσεις με το άθροισμα των διπλασιασμένων ψηφίων στις περιττές θέσεις
     total_sum = sum(digits_at_even_positions) + sum(digits_at_odd_positions_converted)
     # Έλεγχος του τελικού αθροίσματος
-    return total_sum % (digits_at_even_positions[-1] + 2) == 0
+    return total_sum % 10 == 0
 
 
 def prompt_user_to_reenter():
-    """
-    Ζητάει από τον χρήστη να επαναλάβει την εισαγωγή του αριθμού της κάρτας
-    :return: Τυπώνει την προτροπή
-    """
+    """ Ζητάει από τον χρήστη να επαναλάβει την εισαγωγή του αριθμού της κάρτας """
     print("Παρακαλώ επαναλάβετε την εισαγωγή.")
 
 
