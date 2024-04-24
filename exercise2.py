@@ -1,14 +1,19 @@
 def check_invalid_characters(input_string):
     """
     Έλεγχος αν η συμβολοσειρά περιέχει μη επιτρεπτούς χαρακτήρες
+    :param input_string: (str) Η συμβολοσειρά που θα ελεγχθεί
+    :return: Τον μη επιτρεπτό χαρακτήρα, διαφορετικά None
     """
     return next((char for char in input_string if not (char.isdigit() or char.isspace() or char == '-')), None)
 
 
 def is_luhn_valid(card_number):
     """
-    Έλεγχος του αριθμού της πιστωτικής κάρτας με τον αλγόριθμο του Luhn
+    Έλεγχος εγκυρότητας του αριθμού της πιστωτικής κάρτας με τον αλγόριθμο του Luhn
+    :param card_number: (str) Ο αριθμός της πιστωτικής κάρτας που θα ελεγχθεί
+    :return: True or False
     """
+
     # Τα ψηφία στις άρτιες θέσεις
     digits_at_even_positions = [int(card_number[i]) for i in range(1, 16, 2)]
     # Διπλασιάζουμε τα ψηφία στις περιττές θέσεις
@@ -18,12 +23,14 @@ def is_luhn_valid(card_number):
     # Άθροισμα των άρτιων ψηφίων με το άθροισμα των περιττών ψηφίων που διπλασιάστηκαν
     total_sum = sum(digits_at_even_positions) + sum(single_digits)
     # Έλεγχος του τελικού αθροίσματος
-    if total_sum % (digits_at_even_positions[-1] + 2) == 0:
-        return True
-    return False
+    return total_sum % (digits_at_even_positions[-1] + 2) == 0
 
 
 def prompt_user_to_reenter():
+    """
+    Ζητάει από τον χρήστη να επαναλάβει την εισαγωγή του αριθμού της κάρτας
+    :return: Τυπώνει την προτροπή
+    """
     print("Παρακαλώ επαναλάβετε την εισαγωγή.")
 
 
@@ -39,25 +46,25 @@ def main():
             continue
 
         # Αφαιρούμε τα κενά και τις παύλες από τη συμβολοσειρά
-        card_number_wo_spaces_and_dashes = ''.join(char for char in input_string if char.isdigit())
+        card_number_digits = ''.join(char for char in input_string if char.isdigit())
 
         # Έλεγχος αν έχουν εισαχθεί ακριβώς 16 ψηφία
-        if len(card_number_wo_spaces_and_dashes) != 16:
+        if len(card_number_digits) != 16:
             print("Ο αριθμός πρέπει να έχει 16 ψηφία.")
             prompt_user_to_reenter()
             continue
 
         # Μορφοποιούμε τον αριθμό στη μορφή xxxx-xxxx-xxxx-xxxx
-        formatted_card_number = (f"{card_number_wo_spaces_and_dashes[:4]}-{card_number_wo_spaces_and_dashes[4:8]}-"
-                                 f"{card_number_wo_spaces_and_dashes[8:12]}-{card_number_wo_spaces_and_dashes[12:]}")
+        card_number_formated = (f"{card_number_digits[:4]}-{card_number_digits[4:8]}-"
+                                 f"{card_number_digits[8:12]}-{card_number_digits[12:]}")
 
         # Έλεγχος εγκυρότητας σύμφωνα με τον αλγόριθμο Luhn
-        if is_luhn_valid(card_number_wo_spaces_and_dashes):
-            print(f"Ο αριθμός {formatted_card_number} είναι ΕΓΚΥΡΟΣ.")
+        if is_luhn_valid(card_number_digits):
+            print(f"Ο αριθμός {card_number_formated} είναι ΕΓΚΥΡΟΣ.")
             print("Τέλος προγράμματος.")
             break
         else:
-            print(f"Ο αριθμός {formatted_card_number} είναι ΑΚΥΡΟΣ.")
+            print(f"Ο αριθμός {card_number_formated} είναι ΑΚΥΡΟΣ.")
             prompt_user_to_reenter()
 
 
