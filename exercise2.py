@@ -36,25 +36,24 @@ def main():
             continue
 
         # Αφαιρούμε τα κενά και τις παύλες από τη συμβολοσειρά
-        card_number_digits = ''.join(char for char in input_string if char.isdigit())
+        digits = ''.join(char for char in input_string if char.isdigit())
 
         # Έλεγχος αν έχουν εισαχθεί ακριβώς 16 ψηφία
-        if len(card_number_digits) != 16:
+        if len(digits) != 16:
             print("Ο αριθμός πρέπει να έχει 16 ψηφία.")
             prompt_user_to_reenter()
             continue
 
         # Μορφοποιούμε τον αριθμό στη μορφή xxxx-xxxx-xxxx-xxxx
-        card_number_formated = (f"{card_number_digits[:4]}-{card_number_digits[4:8]}-"
-                                 f"{card_number_digits[8:12]}-{card_number_digits[12:]}")
+        card_number = f"{digits[:4]}-{digits[4:8]}-{digits[8:12]}-{digits[12:]}"
 
         # Έλεγχος εγκυρότητας σύμφωνα με τον αλγόριθμο Luhn
-        if is_luhn_valid(card_number_digits):
-            print(f"Ο αριθμός {card_number_formated} είναι ΕΓΚΥΡΟΣ.")
+        if is_luhn_valid(digits):
+            print(f"Ο αριθμός {card_number} είναι ΕΓΚΥΡΟΣ.")
             print("Τέλος προγράμματος.")
             break
         else:
-            print(f"Ο αριθμός {card_number_formated} είναι ΑΚΥΡΟΣ.")
+            print(f"Ο αριθμός {card_number} είναι ΑΚΥΡΟΣ.")
             prompt_user_to_reenter()
 
 
