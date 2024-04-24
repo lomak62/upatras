@@ -1,7 +1,7 @@
 def print_pattern(rows):
     """
     Εμφανίζει στην οθόνη τις γραμμές κειμένου
-    :param rows: Ο αριθμός των γραμμών
+    :param rows: (int) Ο αριθμός των γραμμών
     :return: Τυπώνει τις γραμμές κειμένου
     """
     for i in range(rows):
