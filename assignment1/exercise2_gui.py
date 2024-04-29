@@ -1,23 +1,12 @@
 import tkinter as tk
+import json
 import exercise2
 
 
 def identify_card_issuer(card_number):
-    issuers = {
-        "Visa": ["4"],
-        "MasterCard": ["51", "52", "53", "54", "55"],
-        "Discover Card": ["6011", "622126-622925", "644-649", "65"],
-        "Maestro": ["5018", "5020", "5038", "5893", "6304", "6759", "6761", "6762", "6763", "0604"],
-        "American Express": ["34", "37"],
-        "Diners Club": ["300-305", "3095", "36", "38-39"],
-        "JCB": ["3528-3589"],
-        "InstaPayment": ["637-639"],
-        "Laser": ["6304", "6706", "6771", "6709"],
-        "Solo": ["6334", "6767"],
-        "Switch": ["4903", "4905", "4911", "4936", "564182", "633110", "6333", "6759"],
-        "Visa Electron": ["4026", "417500", "4405", "4508", "4844", "4913", "4917"],
-        "BNP Fortis (FR)": ["440504"]
-    }
+    # Read credit card issuers file
+    with open('exercise2_iss.json', 'r') as f:
+        issuers = json.load(f)
 
     # Sort the issuers by the length of their longest prefix in descending order
     for issuer, prefixes in sorted(issuers.items(), key=lambda x: max(len(p) for p in x[1]), reverse=True):
