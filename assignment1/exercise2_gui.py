@@ -21,17 +21,18 @@ class CardIssuerIdentifier:
             return None
 
     def identify(self, card_number):
-        if self.issuers_data is not None:
-            for issuer, prefixes in sorted(self.issuers_data.items(), key=lambda x: max(len(p) for p in x[1]), reverse=True):
-                for prefix in sorted(prefixes, key=len, reverse=True):
-                    if '-' in prefix:
-                        start, end = map(int, prefix.split('-'))
-                        if int(card_number[:len(str(start))]) in range(start, end + 1):
-                            return issuer
-                    else:
-                        if card_number.startswith(prefix):
-                            return issuer
-            return None
+        if self.issuers_data is None:
+            return "Error: issuers data not loaded"
+        for issuer, prefixes in sorted(self.issuers_data.items(), key=lambda x: max(len(p) for p in x[1]), reverse=True):
+            for prefix in sorted(prefixes, key=len, reverse=True):
+                if '-' in prefix:
+                    start, end = map(int, prefix.split('-'))
+                    if int(card_number[:len(str(start))]) in range(start, end + 1):
+                        return issuer
+                else:
+                    if card_number.startswith(prefix):
+                        return issuer
+        return None
 
 
 class CardValidator:
